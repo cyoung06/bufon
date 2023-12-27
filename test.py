@@ -120,7 +120,7 @@ class MyUI(wx.Frame):
         if not self.media_control.Load(filepath):
             print("Media Load Failed")
         
-        self.ShowWithEffect()
+        self.Show()
         self.media_control.Play()
     
     def toggleFullScreen(self):

@@ -62,7 +62,7 @@ class MyUI(wx.Frame):
         # self.media_control.Bind(wx.media.EVT_MEDIA_FINISHED, self.init_game)
 
         self.pnlVideo.SetBackgroundColour(wx.WHITE)
-        print(f"Setting window... {self.pnlVideo.getHandle()} lolz")
+        print(f"Setting window... {self.pnlVideo.GetHandle()} lolz")
         # self.player.set_xwindow(self.pnlVideo.GetHandle())
 
         self.init_game()

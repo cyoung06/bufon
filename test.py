@@ -3,9 +3,6 @@ import wx
 import wx.media
 import wx.lib.mixins.inspection
 
-import vlc
-player = vlc.MediaPlayer()
-
 class MyApp(wx.App):
     def OnInit(self):
         self.frame = MyUI(None)

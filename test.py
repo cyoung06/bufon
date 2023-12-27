@@ -18,7 +18,7 @@ class MyApp(wx.App):
 # class MyPanel(wx.Panel):
 class MyUI(wx.Frame):
     STATUS = {"start": 0, "end": 1}
-    ROLE = {"left": "defend", "right": "terror"}
+    ROLE = {"left": "defender", "right": "terrorist"}
 
     def __init__(self, parent):
         wx.Frame.__init__(self, parent, title="Test", pos=(-1, -1), size=(500, 500))

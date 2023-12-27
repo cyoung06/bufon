@@ -29,8 +29,7 @@ class MyUI(wx.Frame):
         self.full = False
         self.right_score = 0
         self.left_score = 0
-        self.vlcinstance = vlc.Instance()
-        self.player = self.vlcinstance.media_player_new()
+        self.player = vlc.MediaPlayer()
 
 
         # self.mp = wx.media.MediaCtrl(self, size=wx.Size(512,384), szBackend=wx.media.MEDIABACKEND_DIRECTSHOW)
@@ -130,7 +129,7 @@ class MyUI(wx.Frame):
 
     def playMedia(self, filepath):
 
-        self.media = self.vlcinstance.media_new(filepath)
+        self.media = self.Media(filepath)
         self.player.set_media(self.media)
 
         if self.player.get_media():

@@ -68,8 +68,8 @@ class MyUI(wx.Frame):
         self.init_game()
         self.playMedia("./videos/defend2.mp4")
 
-        self.timer = wx.Timer(self)
-        self.Bind(wx.EVT_TIMER, self.OnTimer, self.timer)
+        # self.timer = wx.Timer(self)
+        # self.Bind(wx.EVT_TIMER, self.OnTimer, self.timer)
     
     def _do_layout(self):
         # self.toggleFullScreen()
@@ -142,13 +142,13 @@ class MyUI(wx.Frame):
 
         # self.media_control.Play()
     
-    def OnTimer(self, event):
-        """Update the position slider"""
+    # def OnTimer(self, event):
+    #     """Update the position slider"""
 
-        if self.player.get_state() != vlc.State.Playing:
-            self.pnlVideo.Hide()
-        else:
-            self.pnlVideo.Show()
+    #     if self.player.get_state() != vlc.State.Playing:
+    #         self.pnlVideo.Hide()
+    #     else:
+    #         self.pnlVideo.Show()
 
     def toggleFullScreen(self):
         self.full = not self.full

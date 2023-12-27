@@ -55,7 +55,7 @@ class Manager():
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
 
-            if self.scores[datakey] + self.scores[datakey] >= criticalPoint:
+            if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
                 isLeftWin = self.scores["defender"] > self.scores["terrorist"]
                 app.endGame(isLeftWin)
                 client.publish(f"game/score/defender", 0, 0)

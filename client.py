@@ -69,7 +69,7 @@ class Manager():
         else:
             self.client.publish("A/blink", "false", 0)
 
-        if side == "attacker":
+        if side == "terrorist":
             self.client.publish("B/blink", "true", 0)
         else:
             self.client.publish("B/blink", "false", 0)

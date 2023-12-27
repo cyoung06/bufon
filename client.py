@@ -29,7 +29,7 @@ class Manager():
         self.client_thread.start()
 
         self.scores = {"terrorist": 0, "defender": 0}
-        self.winSide = None
+        self.winSide = "none"
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
@@ -72,7 +72,7 @@ class Manager():
                 self.scores[datakey] += 1
                 client.publish(f"game/score/defender", str(self.scores["defender"]), 0)
                 client.publish(f"game/score/terrorist", str(self.scores["terrorist"]), 0)
-                self.setWinSide(None)
+                self.setWinSide("none")
         if msg.topic == "game/winSide":
             self.setWinSide(decoded_msg)
     
@@ -116,7 +116,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     @property
     def api_response(self):
-        return json.dumps({"score": mgmt.scores, "winSide": mgmt.winSide if mgmt.winSide is not None else "none"}).encode()
+        return json.dumps({"score": mgmt.scores, "winSide": mgmt.winSide }).encode()
 
     def do_GET(self):
         if self.path == '/':
@@ -130,7 +130,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             elif (self.path == '/winSide/terrorist'):
                 mgmt.setWinSide('terrorist')
             elif (self.path == '/winSide/none'):
-                mgmt.setWinSide(None)
+                mgmt.setWinSide("none")
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
         elif self.path == '/terrorist/inc':

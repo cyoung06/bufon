@@ -62,7 +62,8 @@ class Manager():
                 # app.endGame(isLeftWin)
                 # subprocess.Popen(["python", "vlctest.py", ""])
                 os.system(f"./hax.sh videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' }")
-
+                self.scores["defender"] = 0
+                self.scores["terrorist"] = 0
                 client.publish(f"game/score/defender", 0, 0)
                 client.publish(f"game/score/terrorist", 0, 0)
 

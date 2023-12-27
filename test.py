@@ -59,7 +59,7 @@ class MyUI(wx.Frame):
         self.media_control.SetBackgroundColour(wx.WHITE)
 
         self.init_game()
-        playMedia("./videos/defend2.mp4")
+        self.playMedia("./videos/defend2.mp4")
     
     def _do_layout(self):
         # self.toggleFullScreen()

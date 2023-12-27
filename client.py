@@ -8,6 +8,8 @@ from threading import Thread
 
 qos = 0
 
+criticalPoint = 3
+
 
 class Manager():
     def __init__(self, url, port):
@@ -46,6 +48,14 @@ class Manager():
             
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
+
+            if self.scores[datakey] + self.scores[datakey] >= criticalPoint:
+                isLeftWin = self.scores["defender"] > self.scores["terrorist"]
+                app.endGame(isLeftWin)
+                client.publish(f"game/score/defender", 0, 0)
+                client.publish(f"game/score/terrorist", 0, 0)
+
+                
         if msg.topic.endswith("/press"):
             datakey = ""
             if msg.topic == "A/press":

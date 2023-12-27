@@ -13,8 +13,8 @@ class MyApp(wx.App):
     def setScore(self, role, score):
         wx.CallAfter(self.frame.updateScore, role, score)
 
-    def endGame(self):
-        wx.CallAfter(self.frame.game_ending)
+    def endGame(self, isLeftWin):
+        wx.CallAfter(self.frame.game_ending, isLeftWin)
 
 # class MyPanel(wx.Panel):
 class MyUI(wx.Frame):
@@ -145,8 +145,7 @@ class MyUI(wx.Frame):
         #     return True
         # return False
     
-    def game_ending(self):
-        isLeftWin = self.left_score > self.right_score
+    def game_ending(self, isLeftWin):
 
         if isLeftWin:
             to_play_video = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['end']+1}.mp4"

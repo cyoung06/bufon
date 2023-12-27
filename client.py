@@ -8,7 +8,7 @@ import socketserver
 from typing import Tuple
 import json
 from http import HTTPStatus
-
+import subprocess
 import vlc
 import time
 from test import MyApp
@@ -60,7 +60,8 @@ class Manager():
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
                 isLeftWin = self.scores["defender"] > self.scores["terrorist"]
                 # app.endGame(isLeftWin)
-                os.system(f"python vlctest.py videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' }")
+                # subprocess.Popen(["python", "vlctest.py", ""])
+                os.shell(f"python vlctest.py videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' } &")
 
                 client.publish(f"game/score/defender", 0, 0)
                 client.publish(f"game/score/terrorist", 0, 0)

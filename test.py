@@ -13,8 +13,8 @@ class MyApp(wx.App):
     def setScore(self, role, score):
         wx.CallAfter(self.frame.updateScore, role, score)
 
-    def endGame(self, isLeftWin):
-        wx.CallAfter(self.frame.game_ending, isLeftWin)
+    # def endGame(self, isLeftWin):
+    #     wx.CallAfter(self.frame.game_ending, isLeftWin)
 
 # class MyPanel(wx.Panel):
 class MyUI(wx.Frame):
@@ -63,7 +63,7 @@ class MyUI(wx.Frame):
         # self.player.set_xwindow(self.pnlVideo.GetHandle())
 
         self.init_game()
-        self.playMedia("./videos/defend2.mp4")
+        # self.playMedia("./videos/defend2.mp4")
 
         # self.timer = wx.Timer(self)
         # self.Bind(wx.EVT_TIMER, self.OnTimer, self.timer)
@@ -115,17 +115,17 @@ class MyUI(wx.Frame):
         
         self.updateUI()
     
-    def game_ending(self, isLeftWin):
+    # def game_ending(self, isLeftWin):
 
-        if isLeftWin:
-            to_play_video = f"./videos/defend2.mp4"
-        elif not isLeftWin:
-            to_play_video = f"./videos/terror2.mp4"
+    #     if isLeftWin:
+    #         to_play_video = f"./videos/defend2.mp4"
+    #     elif not isLeftWin:
+    #         to_play_video = f"./videos/terror2.mp4"
 
-        self.playMedia(to_play_video)
+    #     self.playMedia(to_play_video)
 
-    def playMedia(self, filepath):
-        pass
+    # def playMedia(self, filepath):
+    #     pass
         # self.media = self.Media(filepath)
         # player.set_media(self.media)
 

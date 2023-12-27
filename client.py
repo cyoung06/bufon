@@ -59,7 +59,9 @@ class Manager():
 
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
                 isLeftWin = self.scores["defender"] > self.scores["terrorist"]
-                app.endGame(isLeftWin)
+                # app.endGame(isLeftWin)
+                os.system(f"python vlctest.py videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' }")
+
                 client.publish(f"game/score/defender", 0, 0)
                 client.publish(f"game/score/terrorist", 0, 0)
 
@@ -163,20 +165,5 @@ if __name__ == "__main__":
 
     Thread(target=runtcp).start()
 
-
-    # media_player = vlc.MediaPlayer()
-
-    # # media object 
-    # media = vlc.Media("videos/defend2.mp4") 
-    
-    # # setting media to the media player 
-    # media_player.set_media(media) 
-    
-    
-    
-    # # start playing video + commenting it  
-    # media_player.play() 
-    
-    # time.sleep(5)
     app = MyApp(False)
     app.MainLoop()

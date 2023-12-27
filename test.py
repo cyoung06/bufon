@@ -128,18 +128,19 @@ class MyUI(wx.Frame):
         self.playMedia(to_play_video)
 
     def playMedia(self, filepath):
-        self.media = self.Media(filepath)
-        player.set_media(self.media)
+        pass
+        # self.media = self.Media(filepath)
+        # player.set_media(self.media)
 
-        if player.get_media():
-            self.pnlVideo.Show()
-            player.play()
-            print("Media Playing")
+        # if player.get_media():
+        #     self.pnlVideo.Show()
+        #     player.play()
+        #     print("Media Playing")
 
-        else:
-            print("Media Load Failed")
+        # else:
+        #     print("Media Load Failed")
 
-        self.media_control.Play()
+        # self.media_control.Play()
     
     # def OnTimer(self, event):
     #     """Update the position slider"""

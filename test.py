@@ -29,7 +29,7 @@ class MyUI(wx.Frame):
         self.full = False
         self.right_score = 0
         self.left_score = 0
-        self.player = vlc.MediaPlayer()
+        # self.player = vlc.MediaPlayer()
 
 
         # self.mp = wx.media.MediaCtrl(self, size=wx.Size(512,384), szBackend=wx.media.MEDIABACKEND_DIRECTSHOW)
@@ -128,17 +128,17 @@ class MyUI(wx.Frame):
         self.playMedia(to_play_video)
 
     def playMedia(self, filepath):
+        pass
+        # self.media = self.Media(filepath)
+        # self.player.set_media(self.media)
 
-        self.media = self.Media(filepath)
-        self.player.set_media(self.media)
+        # if self.player.get_media():
+            # self.pnlVideo.Show()
+            # self.player.play()
+            # print("Media Playing")
 
-        if self.player.get_media():
-            self.pnlVideo.Show()
-            self.player.play()
-            print("Media Playing")
-
-        else:
-            print("Media Load Failed")
+        # else:
+        #     print("Media Load Failed")
 
         # self.media_control.Play()
     

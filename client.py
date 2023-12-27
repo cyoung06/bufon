@@ -4,6 +4,8 @@ import os
 import uuid
 from test import MyApp
 from threading import Thread
+import http.server
+import socketserver
 
 
 qos = 0

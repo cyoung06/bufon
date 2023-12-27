@@ -46,9 +46,6 @@ class Manager():
             
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
-
-            client.publish(f"A/score", str(self.scores["defender"]), 0)
-            client.publish(f"B/score", str(self.scores["terrorist"]), 0)
         if msg.topic.endswith("/press"):
             datakey = ""
             if msg.topic == "A/press":
@@ -64,6 +61,8 @@ class Manager():
     
     def setWinSide(self, side):
         self.winSide = side
+        client.publish(f"A/score", str(self.scores["defender"]), 0)
+        client.publish(f"B/score", str(self.scores["terrorist"]), 0)
 
         if side == "defender":
             self.client.publish("A/blink", "true", 0)

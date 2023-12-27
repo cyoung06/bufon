@@ -116,7 +116,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
 
     @property
     def api_response(self):
-        return json.dumps({"score": mgmt.scores, "winSide": mgmt.winSide}).encode()
+        return json.dumps({"score": mgmt.scores, "winSide": mgmt.winSide if mgmt.winSide is not None else "none"}).encode()
 
     def do_GET(self):
         if self.path == '/':

@@ -23,7 +23,7 @@ class User():
         self.port = port
 
     @property
-    def uid(self): return self.value
+    def uid(self): return self.role
 
     def initiate(self):
         self.score = 0

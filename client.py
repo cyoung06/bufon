@@ -161,5 +161,20 @@ if __name__ == "__main__":
 
     Thread(target=runtcp).start()
 
+    import vlc
+    # import time
+
+    media_player = vlc.MediaPlayer()
+
+    # media object 
+    media = vlc.Media("videos/defend2.mp4") 
+    
+    # setting media to the media player 
+    media_player.set_media(media) 
+    
+    
+    
+    # start playing video + commenting it  
+    media_player.play() 
     app = MyApp(False)
     app.MainLoop()

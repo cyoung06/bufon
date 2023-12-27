@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>2-10 부스 관리</title>
+        <style>
+            .roundWinner > button {
+                padding: 1em;
+                height: 5em;
+                font-size: larger;
+            }
+            .roundWinner {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+            .score {
+                font-size: larger;
+            }
+            .selected {
+                background-color: black;
+                color: white;
+            }
+            .scoreWrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+            .scoreWrapper button {
+                padding: 1em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="">현재점수</h1>
+        <div class="scoreWrapper">
+            <span>테러리스트: <span class="score" id="terrorist"></span> <button onclick="sc('inc', 'terrorist')">+</button> <button onclick="sc('dec', 'terrorist')">-</button></span>
+            <span>대태러부대: <span class="score" id="defender"></span>  <button onclick="sc('inc', 'defender')">+</button> <button onclick="sc('dec', 'defender')">-</button></span>
+        </div>
+        <hr/>
+        <h1>라운드 승리 세력</h1>
+        <div class="roundWinner">
+            <button id="btn_terrorist" onclick="win('terrorist')">테러리스트</button>
+            <button id="btn_defender" onclick="win('defender')">대태러부대</button>
+            <button id="btn_None" onclick="win('none')">없음</button>
+        </div>
+
+        <script>
+            const onFetch = (data) => {
+                document.getElementById("terrorist").innerText = data.score.terrorist
+                document.getElementById("defender").innerText = data.score.defender
+                // data.score.defender
+                // data.winSide
+                document.getElementById("btn_terrorist").className = data.winSide.toLowerCase() == "terrorist" ? "selected" : ""
+                document.getElementById("btn_defender").className = data.winSide.toLowerCase() == "defender" ? "selected" : ""
+                document.getElementById("btn_None").className = data.winSide.toLowerCase() == "none" ? "selected" : ""
+            }
+            let winSide = ""
+            const win = (side) => {
+                winSide = side;
+                fetch("/api/winSide/"+side, {method: "GET"})
+            }
+            const sc = (op, side) => {
+                fetch("/api/"+side+"/"+op, {method: "GET"})
+            }
+
+            setInterval(() => {
+                fetch("/api/").then(data => data.json()).then(onFetch)
+            }, 500)
+
+
+        </script>
+    </body>
+</html>

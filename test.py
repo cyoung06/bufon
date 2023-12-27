@@ -129,7 +129,7 @@ class MyUI(wx.Frame):
 
     def playMedia(self, filepath):
 
-        self.media = self.vlcinstance.media_new(filepath)A
+        self.media = self.vlcinstance.media_new(filepath)
         self.player.set_media(self.media)
 
         if self.player.get_media():

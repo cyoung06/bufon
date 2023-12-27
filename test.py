@@ -38,9 +38,6 @@ class MyUI(wx.Frame):
 
         self.media_control = wx.media.MediaCtrl(self.main_screen_panel, style=wx.SIMPLE_BORDER)
         
-        self.leftStartMedia = wx.media.MediaCtrl(self.main_screen_panel, style=wx.SIMPLE_BORDER)
-        self.rightStartMedia = wx.media.MediaCtrl(self.main_screen_panel, style=wx.SIMPLE_BORDER)
-
         self.left_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
         self.right_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
         self.left_score_text.SetFont(score_font)
@@ -59,24 +56,8 @@ class MyUI(wx.Frame):
         # self.media_control.Bind(wx.media.EVT_MEDIA_LOADED, self.afterLoad)
         self.media_control.Bind(wx.media.EVT_MEDIA_FINISHED, self.init_game)
 
-        self.leftStartMedia.Bind(wx.media.EVT_MEDIA_FINISHED, self.start_real_game)
-        self.rightStartMedia.Bind(wx.media.EVT_MEDIA_FINISHED, self.start_left_video)
-
         self.media_control.SetBackgroundColour(wx.WHITE)
-        self.leftStartMedia.SetBackgroundColour(wx.WHITE)
-        self.rightStartMedia.SetBackgroundColour(wx.WHITE)
 
-        left_video_path = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['start']+1}.mp4"
-        right_video_path = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['start']+1}.mp4"
-
-        
-        if not self.leftStartMedia.Load(left_video_path):
-            print("Media Load Failed")
-            return self.quit(None)
-        if not self.rightStartMedia.Load(right_video_path):
-            print("Media Load Failed")
-            return self.quit(None)
-        
         self.init_game()
     
     def _do_layout(self):
@@ -100,21 +81,11 @@ class MyUI(wx.Frame):
         top_sizer.Add(self.right_score_text, 0, wx.Center | wx.ALL, 10)
         top_sizer.AddStretchSpacer(1)
 
-        bottom_sizer.Add(self.rightStartMedia, 1, wx.EXPAND, 0)
-        bottom_sizer.Add(self.leftStartMedia, 1, wx.EXPAND, 0)
         bottom_sizer.Add(self.media_control, 1, wx.EXPAND, 0)
 
         self.main_screen_panel.SetSizer(main_sizer)
         self.Centre()
         self.Layout()
-
-    def start_real_game(self, e):
-        self.leftStartMedia.HideWithEffect()
-
-    def start_left_video(self, e):
-        self.rightStartMedia.HideWithEffect()
-        self.leftStartMedia.ShowWithEffect()
-        self.leftStartMedia.Play()
 
     def updateUI(self):
         self.right_score_text.SetLabel(str(self.right_score))
@@ -122,13 +93,8 @@ class MyUI(wx.Frame):
     
     def init_game(self, e=None):
         self.media_control.HideWithEffect()
-        self.right_score = 0
-        self.left_score = 0
         self.updateUI()
 
-        self.rightStartMedia.ShowWithEffect()
-        self.rightStartMedia.Play()
-    
     # winner is defend or terror
     # if game is over => True
     # yet over => False
@@ -139,25 +105,19 @@ class MyUI(wx.Frame):
             self.right_score = score
         
         self.updateUI()
-        
-        # if self.left_score + self.right_score == 3:
-        #     self.game_ending()
-        #     return True
-        # return False
     
     def game_ending(self, isLeftWin):
 
         if isLeftWin:
-            to_play_video = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['end']+1}.mp4"
+            to_play_video = f"./video/defend2.mp4"
         elif not isLeftWin:
-            to_play_video = f"./video/{MyUI.ROLE['right']}{MyUI.STATUS['end']+1}.mp4"
+            to_play_video = f"./video/terror2.mp4"
 
         self.playMedia(to_play_video)
 
     def playMedia(self, filepath):
         if not self.media_control.Load(filepath):
             print("Media Load Failed")
-            return self.quit(None)
         
         self.ShowWithEffect()
         self.media_control.Play()

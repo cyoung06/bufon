@@ -70,6 +70,9 @@ class Manager():
         if msg.topic == "game/winSide":
             self.setWinSide(decoded_msg)
     
+    def modifyScore(self, side, delta):
+        client.publish(f"game/score/{side}", str(self.scores[side] + delta), 0)
+
     def setWinSide(self, side):
         if self.winSide != side:
             self.client.publish("game/winSide", side, 0)
@@ -100,9 +103,54 @@ class Manager():
         # client.update()
     # return client
 
-mgr_user_env = os.getenv("MGR").split(":")
-mgmt = Manager(url=mgr_user_env[0], port=mgr_user_env[1])
+class Handler(http.server.SimpleHTTPRequestHandler):
 
-app = MyApp(False)
+    def __init__(self, request: bytes, client_address: Tuple[str, int], server: socketserver.BaseServer):
+        super().__init__(request, client_address, server)
 
-app.MainLoop()
+    @property
+    def api_response(self):
+        return json.dumps({"score": mgmt.scores, "winSide": mgmt.winSide}).encode()
+
+    def do_GET(self):
+        if self.path == '/':
+            self.send_response(HTTPStatus.OK)
+            self.send_header("Content-Type", "application/json")
+            self.end_headers()
+            self.wfile.write(bytes(self.api_response))
+        else if self.path.startswith('/winSide'):
+            if (self.path == '/winSide/defender'):
+                mgmt.setWinSide('defender')
+            elif (self.path == '/winSide/terrorist'):
+                mgmt.setWinSide('terrorist')
+            elif (self.path == '/winSide/none'):
+                mgmt.setWinSide(None)
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+        else if self.path == '/terrorist/inc':
+            mgmt.modifyScore('terrorist', 1)
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+        else if self.path == '/terrorist/dec':
+            mgmt.modifyScore('terrorist', -1)
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+        else if self.path == '/defender/inc':
+            mgmt.modifyScore('defender', 1)
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+        else if self.path == '/defender/dec':
+            mgmt.modifyScore('defender', -1)
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()
+
+
+if __name__ == "__main__":
+    mgr_user_env = os.getenv("MGR").split(":")
+    mgmt = Manager(url=mgr_user_env[0], port=mgr_user_env[1])
+
+    my_server = socketserver.TCPServer(("0.0.0.0", 8080), Handler)
+    Thread(target=my_server.my_server.serve_forever).start()
+
+    app = MyApp(False)
+    app.MainLoop()

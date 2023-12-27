@@ -24,13 +24,13 @@ class Manager():
         self.scores = {"terrorist": 0, "defender": 0}
 
     def on_connect(self, client, userdata, flags, rc):
-        global topic
         print("Connected with result code "+str(rc))
         client.subscribe("game/score/defender", qos=qos)
         client.subscribe("game/score/terrorist", qos=qos)
 
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")
+        print(f"{msg.topic} says {decoded_msg}")
 
         if msg.topic.startswith("game/score"):
             datakey = ""
@@ -49,8 +49,9 @@ class Manager():
         self.client = mqtt.Client(client_id="mgr")
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
-
+        print(f"Connecting to... {self.url} {self.port}")
         self.client.connect(self.url, self.port, 60)
+        print("Conntected! looping!")
         self.client.loop_forever()
         # client.update()
     # return client

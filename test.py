@@ -63,7 +63,7 @@ class MyUI(wx.Frame):
 
         self.pnlVideo.SetBackgroundColour(wx.WHITE)
         print(f"Setting window... {self.pnlVideo.getHandle()} lolz")
-        self.player.set_xwindow(self.pnlVideo.GetHandle())
+        # self.player.set_xwindow(self.pnlVideo.GetHandle())
 
         self.init_game()
         self.playMedia("./videos/defend2.mp4")

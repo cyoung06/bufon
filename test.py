@@ -3,6 +3,8 @@ import wx
 import wx.media
 import wx.lib.mixins.inspection
 
+import vlc
+
 class MyApp(wx.App):
     def OnInit(self):
         self.frame = MyUI(None)
@@ -27,6 +29,9 @@ class MyUI(wx.Frame):
         self.full = False
         self.right_score = 0
         self.left_score = 0
+        self.vlcinstance = vlc.Instance()
+        self.player = self.vlcinstance.media_player_new()
+
 
         # self.mp = wx.media.MediaCtrl(self, size=wx.Size(512,384), szBackend=wx.media.MEDIABACKEND_DIRECTSHOW)
         # self.mp.Load("./defend1.mp4")
@@ -36,7 +41,7 @@ class MyUI(wx.Frame):
         score_font = wx.Font(120, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
         button_font = wx.Font(40, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
 
-        self.media_control = wx.media.MediaCtrl(self.main_screen_panel, style=wx.SIMPLE_BORDER)
+        self.pnlVideo = wx.Panel(self.main_screen_panel, style=wx.ID_ANY)
         
         self.left_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
         self.right_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
@@ -49,17 +54,22 @@ class MyUI(wx.Frame):
 
         self._do_layout()
 
+
         # self.button = wx.Button(self, label="START")
         # self.button.SetFont(button_font)
 
         # self.Bind(wx.EVT_BUTTON, self.OnClick, self.button)
         # self.media_control.Bind(wx.media.EVT_MEDIA_LOADED, self.afterLoad)
-        self.media_control.Bind(wx.media.EVT_MEDIA_FINISHED, self.init_game)
+        # self.media_control.Bind(wx.media.EVT_MEDIA_FINISHED, self.init_game)
 
-        self.media_control.SetBackgroundColour(wx.WHITE)
+        self.pnlVideo.SetBackgroundColour(wx.WHITE)
+        self.player.set_hwnd(self.pnlVideo.GetHandle())
 
         self.init_game()
         self.playMedia("./videos/defend2.mp4")
+
+        self.timer = wx.Timer(self)
+        self.Bind(wx.EVT_TIMER, self.OnTimer, self.timer)
     
     def _do_layout(self):
         # self.toggleFullScreen()
@@ -82,18 +92,19 @@ class MyUI(wx.Frame):
         top_sizer.Add(self.right_score_text, 0, wx.Center | wx.ALL, 10)
         top_sizer.AddStretchSpacer(1)
 
-        bottom_sizer.Add(self.media_control, 1, wx.EXPAND, 0)
+        bottom_sizer.Add(self.pnlVideo, 1, wx.EXPAND, 0)
 
         self.main_screen_panel.SetSizer(main_sizer)
         self.Centre()
         self.Layout()
+        
 
     def updateUI(self):
         self.right_score_text.SetLabel(str(self.right_score))
         self.left_score_text.SetLabel(str(self.left_score))
     
     def init_game(self, e=None):
-        self.media_control.Hide()
+        self.pnlVideo.Hide()
         self.updateUI()
 
     # winner is defend or terror
@@ -117,12 +128,28 @@ class MyUI(wx.Frame):
         self.playMedia(to_play_video)
 
     def playMedia(self, filepath):
-        if not self.media_control.Load(filepath):
+
+        self.media = self.vlcinstance.media_new(filepath)A
+        self.player.set_media(self.media)
+
+        if self.player.get_media():
+            self.pnlVideo.Show()
+            self.player.play()
+            print("Media Playing")
+
+        else:
             print("Media Load Failed")
-        
-        self.Show()
-        self.media_control.Play()
+
+        # self.media_control.Play()
     
+    def OnTimer(self, event):
+        """Update the position slider"""
+
+        if self.player.get_state() != vlc.State.Playing:
+            self.pnlVideo.Hide()
+        else:
+            self.pnlVideo.Show()
+
     def toggleFullScreen(self):
         self.full = not self.full
         self.ShowFullScreen(self.full, wx.FULLSCREEN_ALL)

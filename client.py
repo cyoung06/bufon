@@ -32,16 +32,16 @@ class Manager():
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")
 
-        if msg.topic.startswith("game/score") {
+        if msg.topic.startswith("game/score"):
             datakey = ""
-            if msg.topic == "game/score/defender" {
+            if msg.topic == "game/score/defender":
                 datakey = "defender"
-            } else if msg.topic == "game/score/terrorist" {
+            elif msg.topic == "game/score/terrorist":
                 datakey = "terrorist"
-            }
+            
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
-        }
+        
 
     
 

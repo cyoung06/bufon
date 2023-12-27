@@ -61,6 +61,8 @@ class Manager():
             self.setWinSide(decoded_msg)
     
     def setWinSide(self, side):
+        if self.winSide != side:
+            self.client.publish("game/winSide", side, 0)
         self.winSide = side
         self.client.publish(f"A/score", str(self.scores["defender"]), 0)
         self.client.publish(f"B/score", str(self.scores["terrorist"]), 0)
@@ -74,8 +76,6 @@ class Manager():
             self.client.publish("B/blink", "true", 0)
         else:
             self.client.publish("B/blink", "false", 0)
-        if self.winSide != side:
-            self.client.publish("game/winSide", side, 0)
     
 
     def connect(self):

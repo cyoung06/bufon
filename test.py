@@ -14,7 +14,7 @@ class MyApp(wx.App):
         wx.CallAfter(self.frame.updateScore, role, score)
 
     def endGame(self):
-        self.frame.game_ending()
+        wx.CallAfter(self.frame.game_ending)
 
 # class MyPanel(wx.Panel):
 class MyUI(wx.Frame):

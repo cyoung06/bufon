@@ -21,11 +21,17 @@ class Manager():
         self.client_thread.start()
 
         self.scores = {"terrorist": 0, "defender": 0}
+        self.winSide = None
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
         client.subscribe("game/score/defender", qos=qos)
         client.subscribe("game/score/terrorist", qos=qos)
+        client.subscribe("A/ready", qos=qos)
+        client.subscribe("A/press", qos=qos)
+        client.subscribe("B/ready", qos=qos)
+        client.subscribe("B/press", qos=qos)
+        client.subscribe("game/wonSide", qos=qos)
 
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")
@@ -40,6 +46,34 @@ class Manager():
             
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
+
+            client.publish(f"A/score", str(self.scores["defender"]), 0)
+            client.publish(f"B/score", str(self.scores["terrorist"]), 0)
+        if msg.topic.endswith("/press"):
+            datakey = ""
+            if msg.topic == "A/press":
+                datakey = "defender"
+            elif msg.topic == "B/press"
+                datakey = "terrorist"
+            if decoded_msg == "true" and self.winSide == datakey:
+                self.scores[datakey] += 1
+                client.publish(f"game/score/{datakey}", str(self.scores[datakey]), 0)
+                self.setWinSide(None)
+        if msg.topic == "game/winSide":
+            self.setWinSide(decoded_msg)
+    
+    def setWinSide(self, side):
+        self.winSide = side
+
+        if side == "defender":
+            self.client.publish("A/blink", "true", 0)
+        else
+            self.client.publish("A/blink", "false", 0)
+
+        if side == "attacker":
+            self.client.publish("B/blink", "true", 0)
+        else:
+            self.client.publish("B/blink", "false", 0)
         
 
     

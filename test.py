@@ -65,8 +65,8 @@ class MyUI(wx.Frame):
         self.leftStartMedia.SetBackgroundColour(wx.WHITE)
         self.rightStartMedia.SetBackgroundColour(wx.WHITE)
 
-        left_video_path = f"./video/{MyUI.ROLE["left"]}{MyUI.STATUS["start"]+1}.mp4"
-        right_video_path = f"./video/{MyUI.ROLE["left"]}{MyUI.STATUS["start"]+1}.mp4"
+        left_video_path = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['start']+1}.mp4"
+        right_video_path = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['start']+1}.mp4"
 
         
         if not self.leftStartMedia.Load(left_video_path):
@@ -148,9 +148,9 @@ class MyUI(wx.Frame):
         isLeftWin = self.left_score > self.right_score
 
         if isLeftWin:
-            to_play_video = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS["end"]+1}.mp4"
+            to_play_video = f"./video/{MyUI.ROLE['left']}{MyUI.STATUS['end']+1}.mp4"
         elif not isLeftWin:
-            to_play_video = f"./video/{MyUI.ROLE['right']}{MyUI.STATUS["end"]+1}.mp4"
+            to_play_video = f"./video/{MyUI.ROLE['right']}{MyUI.STATUS['end']+1}.mp4"
 
         self.playMedia(to_play_video)
 

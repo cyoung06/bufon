@@ -9,7 +9,7 @@ media = vlc.Media(sys.argv[1])
   
 # setting media to the media player 
 media_player.set_media(media) 
-  
+media_player.audio_set_volume(100)
   
   
 # start playing video + commenting it  

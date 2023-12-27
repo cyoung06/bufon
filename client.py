@@ -162,7 +162,7 @@ if __name__ == "__main__":
     Thread(target=runtcp).start()
 
     import vlc
-    # import time
+    import time
 
     media_player = vlc.MediaPlayer()
 
@@ -176,5 +176,7 @@ if __name__ == "__main__":
     
     # start playing video + commenting it  
     media_player.play() 
+    
+    time.sleep(5)
     app = MyApp(False)
     app.MainLoop()

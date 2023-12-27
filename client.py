@@ -77,7 +77,7 @@ class Manager():
             self.setWinSide(decoded_msg)
     
     def modifyScore(self, side, delta):
-        client.publish(f"game/score/{side}", str(self.scores[side] + delta), 0)
+        self.client.publish(f"game/score/{side}", str(self.scores[side] + delta), 0)
 
     def setWinSide(self, side):
         if self.winSide != side:

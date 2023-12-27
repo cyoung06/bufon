@@ -73,8 +73,8 @@ class Manager():
             self.client.publish("B/blink", "true", 0)
         else:
             self.client.publish("B/blink", "false", 0)
-        
-
+        if self.winSide !== side:
+            self.client.publish("game/winSide", side, 0)
     
 
     def connect(self):

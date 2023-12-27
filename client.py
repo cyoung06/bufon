@@ -161,8 +161,5 @@ if __name__ == "__main__":
 
     Thread(target=runtcp).start()
 
-    import vlc
-    player = vlc.MediaPlayer()
-
     app = MyApp(False)
     app.MainLoop()

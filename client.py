@@ -31,7 +31,7 @@ class Manager():
         client.subscribe("A/press", qos=qos)
         client.subscribe("B/ready", qos=qos)
         client.subscribe("B/press", qos=qos)
-        client.subscribe("game/wonSide", qos=qos)
+        client.subscribe("game/winSide", qos=qos)
 
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")

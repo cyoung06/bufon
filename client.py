@@ -53,7 +53,7 @@ class Manager():
             datakey = ""
             if msg.topic == "A/press":
                 datakey = "defender"
-            elif msg.topic == "B/press"
+            elif msg.topic == "B/press":
                 datakey = "terrorist"
             if decoded_msg == "true" and self.winSide == datakey:
                 self.scores[datakey] += 1

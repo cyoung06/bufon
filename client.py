@@ -127,19 +127,19 @@ class Handler(http.server.SimpleHTTPRequestHandler):
                 mgmt.setWinSide(None)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
-        else if self.path == '/terrorist/inc':
+        elif self.path == '/terrorist/inc':
             mgmt.modifyScore('terrorist', 1)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
-        else if self.path == '/terrorist/dec':
+        elif self.path == '/terrorist/dec':
             mgmt.modifyScore('terrorist', -1)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
-        else if self.path == '/defender/inc':
+        elif self.path == '/defender/inc':
             mgmt.modifyScore('defender', 1)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
-        else if self.path == '/defender/dec':
+        elif self.path == '/defender/dec':
             mgmt.modifyScore('defender', -1)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()

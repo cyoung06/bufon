@@ -1,6 +1,6 @@
 import vlc
 
-player = vlc.MediaPlayer()
+media_player = vlc.MediaPlayer()
 
 # media object 
 media = vlc.Media("videos/defend2.mp4") 

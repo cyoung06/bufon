@@ -8,16 +8,15 @@ from threading import Thread
 
 qos = 0
 
-# ROLES
-DEFEND = "defend"
-TERROR = "terror"
 
 class Manager():
     def __init__(self, url, port):
+        print("INIT MGR")
         self.value = uuid.uuid4()
         self.url = url
         self.port = int(port)
 
+        print("Start thread!")
         self.client_thread = Thread(target=self.connect)
         self.client_thread.start()
 
@@ -45,7 +44,8 @@ class Manager():
 
     
 
-    def connect(self, client):
+    def connect(self):
+        print("awesome connecting")
         self.client = mqtt.Client(client_id="mgr")
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message

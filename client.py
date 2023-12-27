@@ -2,7 +2,6 @@
 import paho.mqtt.client as mqtt
 import os
 import uuid
-from test import MyApp
 from threading import Thread
 import http.server
 import socketserver
@@ -178,5 +177,6 @@ if __name__ == "__main__":
     media_player.play() 
     
     time.sleep(5)
+    from test import MyApp
     app = MyApp(False)
     app.MainLoop()

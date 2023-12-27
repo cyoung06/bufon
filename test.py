@@ -29,7 +29,7 @@ class MyUI(wx.Frame):
         self.full = False
         self.right_score = 0
         self.left_score = 0
-        # self.player = vlc.MediaPlayer()
+        self.player = vlc.MediaPlayer()
 
 
         # self.mp = wx.media.MediaCtrl(self, size=wx.Size(512,384), szBackend=wx.media.MEDIABACKEND_DIRECTSHOW)

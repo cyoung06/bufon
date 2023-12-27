@@ -156,7 +156,7 @@ if __name__ == "__main__":
     mgmt = Manager(url=mgr_user_env[0], port=mgr_user_env[1])
 
     my_server = socketserver.TCPServer(("0.0.0.0", 8080), Handler)
-    Thread(target=my_server.my_server.serve_forever).start()
+    Thread(target=my_server.serve_forever).start()
 
     app = MyApp(False)
     app.MainLoop()

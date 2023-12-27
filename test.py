@@ -10,8 +10,10 @@ class MyApp(wx.App):
         self.frame.Show()
         return True
     
-    def win(self, role):
-        return self.frame.updateScore(role)
+    def setScore(self, role, score):
+        self.frame.updateScore(role, score)
+    def endGame(self):
+        self.frame.game_ending()
 
 # class MyPanel(wx.Panel):
 class MyUI(wx.Frame):
@@ -129,18 +131,18 @@ class MyUI(wx.Frame):
     # winner is defend or terror
     # if game is over => True
     # yet over => False
-    def updateScore(self, winner):
+    def updateScore(self, winner, score):
         if MyUI.ROLE["left"] == winner:
-            self.left_score += 1
+            self.left_score = score
         elif MyUI.ROLE["right"] == winner:
-            self.right_score += 1
+            self.right_score = score
         
         self.updateUI()
         
-        if self.left_score + self.right_score == 3:
-            self.game_ending()
-            return True
-        return False
+        # if self.left_score + self.right_score == 3:
+        #     self.game_ending()
+        #     return True
+        # return False
     
     def game_ending(self):
         isLeftWin = self.left_score > self.right_score

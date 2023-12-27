@@ -109,9 +109,9 @@ class MyUI(wx.Frame):
     def game_ending(self, isLeftWin):
 
         if isLeftWin:
-            to_play_video = f"./video/defend2.mp4"
+            to_play_video = f"./videos/defend2.mp4"
         elif not isLeftWin:
-            to_play_video = f"./video/terror2.mp4"
+            to_play_video = f"./videos/terror2.mp4"
 
         self.playMedia(to_play_video)
 

@@ -9,6 +9,9 @@ from typing import Tuple
 import json
 from http import HTTPStatus
 
+import vlc
+import time
+from test import MyApp
 
 
 qos = 0
@@ -160,8 +163,6 @@ if __name__ == "__main__":
 
     Thread(target=runtcp).start()
 
-    import vlc
-    import time
 
     media_player = vlc.MediaPlayer()
 
@@ -177,6 +178,5 @@ if __name__ == "__main__":
     media_player.play() 
     
     time.sleep(5)
-    from test import MyApp
     app = MyApp(False)
     app.MainLoop()

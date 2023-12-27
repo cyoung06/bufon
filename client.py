@@ -67,7 +67,7 @@ class Manager():
 
         if side == "defender":
             self.client.publish("A/blink", "true", 0)
-        else
+        else:
             self.client.publish("A/blink", "false", 0)
 
         if side == "attacker":

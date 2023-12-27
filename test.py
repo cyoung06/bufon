@@ -92,7 +92,7 @@ class MyUI(wx.Frame):
         self.left_score_text.SetLabel(str(self.left_score))
     
     def init_game(self, e=None):
-        self.media_control.HideWithEffect()
+        self.media_control.Hide()
         self.updateUI()
 
     # winner is defend or terror

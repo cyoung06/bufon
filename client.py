@@ -118,7 +118,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json")
             self.end_headers()
             self.wfile.write(bytes(self.api_response))
-        else if self.path.startswith('/winSide'):
+        elif self.path.startswith('/winSide'):
             if (self.path == '/winSide/defender'):
                 mgmt.setWinSide('defender')
             elif (self.path == '/winSide/terrorist'):

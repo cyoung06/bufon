@@ -61,8 +61,8 @@ class Manager():
     
     def setWinSide(self, side):
         self.winSide = side
-        client.publish(f"A/score", str(self.scores["defender"]), 0)
-        client.publish(f"B/score", str(self.scores["terrorist"]), 0)
+        self.client.publish(f"A/score", str(self.scores["defender"]), 0)
+        self.client.publish(f"B/score", str(self.scores["terrorist"]), 0)
 
         if side == "defender":
             self.client.publish("A/blink", "true", 0)

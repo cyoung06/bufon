@@ -11,7 +11,8 @@ class MyApp(wx.App):
         return True
     
     def setScore(self, role, score):
-        self.frame.updateScore(role, score)
+        wx.CallAfter(self.frame.updateScore, role, score)
+
     def endGame(self):
         self.frame.game_ending()
 

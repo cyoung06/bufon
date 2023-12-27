@@ -150,13 +150,16 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
 
+def runtcp():
+    my_server = socketserver.TCPServer(("0.0.0.0", 8080), Handler)
+    my_server.serve_forever()
+
 
 if __name__ == "__main__":
     mgr_user_env = os.getenv("MGR").split(":")
     mgmt = Manager(url=mgr_user_env[0], port=mgr_user_env[1])
 
-    my_server = socketserver.TCPServer(("0.0.0.0", 8080), Handler)
-    Thread(target=my_server.serve_forever).start()
+    Thread(target=runtcp).start()
 
     app = MyApp(False)
     app.MainLoop()

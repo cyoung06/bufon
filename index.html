@@ -45,6 +45,7 @@
         <hr/>
         <div class="roundWinner">
             <button onclick="startr()">라운드 시작</button>
+            <button onclick="stopr()">라운드 시작</button>
         </div>
 
         <script>
@@ -68,6 +69,9 @@
 
             const startr = () => {
                 fetch("/api/startround", {method: "GET"})
+            }
+            const stopr = () => {
+                fetch("/api/stopround", {method: "GET"})
             }
             setInterval(() => {
                 fetch("/api/").then(data => data.json()).then(onFetch)

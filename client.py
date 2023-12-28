@@ -183,6 +183,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             mgmt.playRound()
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()    
+        elif self.path == '/stopRound':
+            mgmt.stopRound()
+            self.send_response(HTTPStatus.NO_CONTENT)
+            self.end_headers()    
 
 def runtcp():
     my_server = socketserver.TCPServer(("0.0.0.0", 8080), Handler)

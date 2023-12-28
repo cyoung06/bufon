@@ -98,7 +98,7 @@ class Manager():
                 datakey = "terrorist"
             if decoded_msg == "true" and self.winSide == datakey:
                 self.setWinSide("none")
-                self.client.publish(f"game/score/{side}", str(self.scores[side] + 1), 0)
+                self.client.publish(f"game/score/{datakey}", str(self.scores[datakey] + 1), 0)
 
                 
 

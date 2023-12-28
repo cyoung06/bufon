@@ -42,6 +42,10 @@
             <button id="btn_defender" onclick="win('defender')">대태러부대</button>
             <button id="btn_None" onclick="win('none')">없음</button>
         </div>
+        <hr/>
+        <div class="roundWinner">
+            <button onclick="startr()">라운드 시작</button>
+        </div>
 
         <script>
             const onFetch = (data) => {
@@ -62,6 +66,9 @@
                 fetch("/api/"+side+"/"+op, {method: "GET"})
             }
 
+            const startr = () => {
+                fetch("/api/startround", {method: "GET"})
+            }
             setInterval(() => {
                 fetch("/api/").then(data => data.json()).then(onFetch)
             }, 500)

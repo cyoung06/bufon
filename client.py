@@ -94,7 +94,6 @@ class Manager():
             elif msg.topic == "B/press":
                 datakey = "terrorist"
             if decoded_msg == "true" and self.winSide == datakey:
-                self.scores[datakey] += 1
                 self.setWinSide("none")
                 client.publish(f"game/score/defender", str(self.scores["defender"]), 0)
                 client.publish(f"game/score/terrorist", str(self.scores["terrorist"]), 0)

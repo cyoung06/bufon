@@ -177,7 +177,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             mgmt.modifyScore('defender', -1)
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
-        elif self.path == '/startround'
+        elif self.path == '/startround':
             mgmt.playRound()
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()    

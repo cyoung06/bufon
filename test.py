@@ -93,9 +93,9 @@ class MyUI(wx.Frame):
         # sizer_2.Add(self.left_score_text, 0, flag=wx.ALIGN_TOP, border=2)
         # sizer_2.Add(self.right_score_text, 0, flag=wx.ALIGN_BOTTOM, border=2)
         top_sizer.AddStretchSpacer(1)
-        top_sizer.Add(self.left_score_text, 0, wx.Center | wx.ALL, 10)
+        top_sizer.Add(self.left_score_text, 0, wx.Center | wx.ALL, 0)
         top_sizer.AddStretchSpacer(2)
-        top_sizer.Add(self.right_score_text, 0, wx.Center | wx.ALL, 10)
+        top_sizer.Add(self.right_score_text, 0, wx.Center | wx.ALL, 0)
         top_sizer.AddStretchSpacer(1)
 
         bottom_sizer.AddStretchSpacer(1)

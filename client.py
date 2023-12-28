@@ -48,7 +48,7 @@ class Manager():
     def playRound(self):
         if self.playingProcess != None:
             self.playingProcess.terminate()
-        self.playingProcess = subprocess.Popen([f'aplay sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
+        self.playingProcess = subprocess.Popen([f'/usr/bin/aplay sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
 
 
     def on_message(self, client, userdata, msg):
@@ -75,7 +75,7 @@ class Manager():
                 self.scores["terrorist"] = 0
                 if not self.played:
                     self.played = True
-                    os.system(f"aplay sounds/victory_{datakey}.wav")
+                    os.system(f"/usr/bin/aplay sounds/victory_{datakey}.wav")
                     time.sleep(9)
                     # app.endGame(isLeftWin)
                     # subprocess.Popen(["python", "vlctest.py", ""])
@@ -85,7 +85,7 @@ class Manager():
                     client.publish(f"game/score/defender", 0, 0)
                     client.publish(f"game/score/terrorist", 0, 0)
             elif isIncrease:
-                os.system(f"aplay sounds/round_{datakey}") 
+                os.system(f"/usr/bin/aplay sounds/round_{datakey}.wav") 
                 
         if msg.topic.endswith("/press"):
             datakey = ""

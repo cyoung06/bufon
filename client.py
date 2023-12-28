@@ -49,6 +49,8 @@ class Manager():
         if self.playingProcess is not None:
             self.playingProcess.terminate()
             self.playingProcess = None
+        
+        os.system(f"/usr/bin/aplay sounds/start.wav")
         self.playingProcess = subprocess.Popen([f'/usr/bin/aplay', f'sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
     def stopRound(self):
         if self.playingProcess is not None:

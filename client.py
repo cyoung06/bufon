@@ -49,6 +49,9 @@ class Manager():
         if self.playingProcess != None:
             self.playingProcess.terminate()
         self.playingProcess = subprocess.Popen([f'/usr/bin/aplay', f'sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
+    def stopRound(self):
+        if self.playingProcess != None:
+            self.playingProcess.terminate()
 
 
     def on_message(self, client, userdata, msg):
@@ -95,8 +98,8 @@ class Manager():
                 datakey = "terrorist"
             if decoded_msg == "true" and self.winSide == datakey:
                 self.setWinSide("none")
-                client.publish(f"game/score/defender", str(self.scores["defender"]), 0)
-                client.publish(f"game/score/terrorist", str(self.scores["terrorist"]), 0)
+                client.publish(f"game/score/defender", str(self.scores["defender"] + (1 if datakey == 'defender' else 0)), 0)
+                client.publish(f"game/score/terrorist", str(self.scores["terrorist"] + (1 if datakey == 'terrorist' else 0)), 0)
 
                 
 

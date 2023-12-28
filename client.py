@@ -54,9 +54,11 @@ class Manager():
                 datakey = "defender"
             elif msg.topic == "game/score/terrorist":
                 datakey = "terrorist"
-            
+            isIncrease = self.scores[datakey] - int(decoded_msg) > 0
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
+
+            
 
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
                 isLeftWin = self.scores["defender"] > self.scores["terrorist"]
@@ -64,6 +66,7 @@ class Manager():
                 self.scores["terrorist"] = 0
                 if not self.played:
                     self.played = True
+                    os.system(f"aplay sounds/victory_{datakey}")
                     time.sleep(9)
                     # app.endGame(isLeftWin)
                     # subprocess.Popen(["python", "vlctest.py", ""])
@@ -72,7 +75,8 @@ class Manager():
                     self.played = False
                     client.publish(f"game/score/defender", 0, 0)
                     client.publish(f"game/score/terrorist", 0, 0)
-
+            elif isIncrease:
+                os.system(f"aplay sounds/round_{datakey}") 
                 
         if msg.topic.endswith("/press"):
             datakey = ""

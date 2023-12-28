@@ -56,7 +56,7 @@ class Manager():
 
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")
-        print(f"{msg.topic} says {decoded_msg}")
+        # print(f"{msg.topic} says {decoded_msg}")
 
         if msg.topic.startswith("game/score"):
             datakey = ""

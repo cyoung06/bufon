@@ -35,8 +35,7 @@ class MyUI(wx.Frame):
         self.main_screen_panel = wx.Panel(self, -1)
 
         score_font = wx.Font(120, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
-        team_font = wx.Font(80, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
-        team_font2 = wx.Font(60, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
+        team_font = wx.Font(50, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
 
         self.left_team_text = wx.StaticText(self.main_screen_panel, label="세마고 대테러 특수부대", size=(-1, -1))
         self.right_team_text = wx.StaticText(self.main_screen_panel, label="테러리스트", size=(-1, -1))

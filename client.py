@@ -32,6 +32,7 @@ class Manager():
 
         self.scores = {"terrorist": 0, "defender": 0}
         self.winSide = "none"
+        self.played = False
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
@@ -59,13 +60,18 @@ class Manager():
 
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
                 isLeftWin = self.scores["defender"] > self.scores["terrorist"]
-                # app.endGame(isLeftWin)
-                # subprocess.Popen(["python", "vlctest.py", ""])
-                os.system(f"./hax.sh videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' }")
                 self.scores["defender"] = 0
                 self.scores["terrorist"] = 0
-                client.publish(f"game/score/defender", 0, 0)
-                client.publish(f"game/score/terrorist", 0, 0)
+                if not self.played:
+                    self.played = True
+                    time.sleep(9)
+                    # app.endGame(isLeftWin)
+                    # subprocess.Popen(["python", "vlctest.py", ""])
+                    
+                    os.system(f"./hax.sh videos/{'defend2.mp4' if isLeftWin else 'terror2.mp4' }")
+                    self.played = False
+                    client.publish(f"game/score/defender", 0, 0)
+                    client.publish(f"game/score/terrorist", 0, 0)
 
                 
         if msg.topic.endswith("/press"):
@@ -76,9 +82,12 @@ class Manager():
                 datakey = "terrorist"
             if decoded_msg == "true" and self.winSide == datakey:
                 self.scores[datakey] += 1
+                self.setWinSide("none")
                 client.publish(f"game/score/defender", str(self.scores["defender"]), 0)
                 client.publish(f"game/score/terrorist", str(self.scores["terrorist"]), 0)
-                self.setWinSide("none")
+
+                
+
         if msg.topic == "game/winSide":
             self.setWinSide(decoded_msg)
     

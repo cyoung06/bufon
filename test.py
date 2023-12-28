@@ -37,12 +37,20 @@ class MyUI(wx.Frame):
         score_font = wx.Font(120, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
         button_font = wx.Font(40, wx.FONTFAMILY_SWISS, wx.NORMAL, wx.FONTWEIGHT_BOLD)
 
-        self.pnlVideo = wx.Panel(self.main_screen_panel, style=wx.ID_ANY)
+        self.left_team_text = wx.StaticText(self.main_screen_panel, label="세마고 대테러 특수부대", size=(-1, -1))
+        self.right_team_text = wx.StaticText(self.main_screen_panel, label="테러리스트", size=(-1, -1))
+        self.left_team_text.SetFont(score_font)
+        self.right_team_text.SzetFont(score_font)
+        white = (255, 255, 255)
+        black = (0, 0, 0)
+        self.left_team_text.SetForegroundColour(white)
+        self.right_team_text.SetForegroundColour(white)
+
         
         self.left_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
         self.right_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))
         self.left_score_text.SetFont(score_font)
-        self.right_score_text.SetFont(score_font)
+        self.right_score_text.SzetFont(score_font)
         white = (255, 255, 255)
         black = (0, 0, 0)
         self.left_score_text.SetForegroundColour(white)
@@ -77,9 +85,8 @@ class MyUI(wx.Frame):
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         bottom_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        main_sizer.AddSpacer(80)
-        main_sizer.Add(top_sizer, 0, wx.EXPAND , border=10)
         main_sizer.Add(bottom_sizer, 0, wx.EXPAND, border=10)
+        main_sizer.Add(top_sizer, 0, wx.EXPAND , border=10)
 
         # sizer_2.Add(self.left_score_text, 0, flag=wx.ALIGN_TOP, border=2)
         # sizer_2.Add(self.right_score_text, 0, flag=wx.ALIGN_BOTTOM, border=2)
@@ -89,8 +96,11 @@ class MyUI(wx.Frame):
         top_sizer.Add(self.right_score_text, 0, wx.Center | wx.ALL, 10)
         top_sizer.AddStretchSpacer(1)
 
-        bottom_sizer.Add(self.pnlVideo, 1, wx.EXPAND, 0)
-
+        bottom_sizer.AddStretchSpacer(1)
+        bottom_sizer.Add(self.left_team_text, 0, wx.Center | wx.ALL, 10)
+        bottom_sizer.AddStretchSpacer(2)
+        bottom_sizer.Add(self.right_team_text, 0, wx.Center | wx.ALL, 10)
+        bottom_sizer.AddStretchSpacer(1)
         self.main_screen_panel.SetSizer(main_sizer)
         self.Centre()
         self.Layout()

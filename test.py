@@ -100,9 +100,9 @@ class MyUI(wx.Frame):
         top_sizer.AddStretchSpacer(1)
 
         bottom_sizer.AddStretchSpacer(1)
-        bottom_sizer.Add(self.left_team_text, 0, wx.Center | wx.ALL, 10)
+        bottom_sizer.Add(self.left_team_text, 0, wx.Center | wx.ALL, 0)
         bottom_sizer.AddStretchSpacer(2)
-        bottom_sizer.Add(self.right_team_text, 0, wx.Center | wx.ALL, 10)
+        bottom_sizer.Add(self.right_team_text, 0, wx.Center | wx.ALL, 0)
         bottom_sizer.AddStretchSpacer(1)
         self.main_screen_panel.SetSizer(main_sizer)
         self.Centre()

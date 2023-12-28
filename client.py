@@ -79,7 +79,7 @@ class Manager():
                 if not self.played:
                     self.played = True
                     os.system(f"/usr/bin/aplay sounds/victory_{datakey}.wav")
-                    time.sleep(9)
+                    time.sleep(3)
                     # app.endGame(isLeftWin)
                     # subprocess.Popen(["python", "vlctest.py", ""])
                     

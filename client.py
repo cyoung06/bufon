@@ -48,7 +48,7 @@ class Manager():
     def playRound(self):
         if self.playingProcess != None:
             self.playingProcess.terminate()
-        self.playingProcess = subprocess.Popen([f'/usr/bin/aplay sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
+        self.playingProcess = subprocess.Popen([f'/usr/bin/aplay', f'sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
 
 
     def on_message(self, client, userdata, msg):
@@ -61,7 +61,7 @@ class Manager():
                 datakey = "defender"
             elif msg.topic == "game/score/terrorist":
                 datakey = "terrorist"
-            isIncrease = self.scores[datakey] - int(decoded_msg) > 0
+            isIncrease = int(decoded_msg) - self.scores[datakey] > 0
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
 

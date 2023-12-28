@@ -43,9 +43,9 @@ class MyUI(wx.Frame):
         self.left_team_text.SetFont(team_font2)
         self.right_team_text.SetFont(team_font)
         white = (255, 255, 255)
-        black = (0, 0, 0)
-        self.left_team_text.SetForegroundColour(white)
-        self.right_team_text.SetForegroundColour(white)
+        black = (0, 0, 0) 
+        self.left_team_text.SetForegroundColour((0, 150, 48))
+        self.right_team_text.SetForegroundColour((227,33,66))
 
         
         self.left_score_text = wx.StaticText(self.main_screen_panel, label="0", size=(-1, -1))

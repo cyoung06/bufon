@@ -154,12 +154,13 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(bytes(self.api_response))
         elif self.path.startswith('/winSide'):
-            if (self.path == '/winSide/defender'):
-                mgmt.setWinSide('defender')
-            elif (self.path == '/winSide/terrorist'):
-                mgmt.setWinSide('terrorist')
-            elif (self.path == '/winSide/none'):
-                mgmt.setWinSide("none")
+            if mgmt.playingProcess is not None:
+                if (self.path == '/winSide/defender'):
+                    mgmt.setWinSide('defender')
+                elif (self.path == '/winSide/terrorist'):
+                    mgmt.setWinSide('terrorist')
+                elif (self.path == '/winSide/none'):
+                    mgmt.setWinSide("none")
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()
         elif self.path == '/terrorist/inc':

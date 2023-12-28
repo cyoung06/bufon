@@ -33,6 +33,7 @@ class Manager():
         self.scores = {"terrorist": 0, "defender": 0}
         self.winSide = "none"
         self.played = False
+        self.playingProcess = None
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
@@ -43,6 +44,12 @@ class Manager():
         client.subscribe("B/ready", qos=qos)
         client.subscribe("B/press", qos=qos)
         client.subscribe("game/winSide", qos=qos)
+
+    def playRound(self):
+        if self.playingProcess != None:
+            self.playingProcess.terminate()
+        self.playingProcess = subprocess.Popen([f'aplay sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
+
 
     def on_message(self, client, userdata, msg):
         decoded_msg = msg.payload.decode("utf-8")
@@ -58,6 +65,8 @@ class Manager():
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
 
+            if self.playingProcess != None:
+                self.playingProcess.terminate()
             
 
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
@@ -66,7 +75,7 @@ class Manager():
                 self.scores["terrorist"] = 0
                 if not self.played:
                     self.played = True
-                    os.system(f"aplay sounds/victory_{datakey}")
+                    os.system(f"aplay sounds/victory_{datakey}.wav")
                     time.sleep(9)
                     # app.endGame(isLeftWin)
                     # subprocess.Popen(["python", "vlctest.py", ""])

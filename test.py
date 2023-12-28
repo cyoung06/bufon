@@ -86,7 +86,7 @@ class MyUI(wx.Frame):
         top_sizer = wx.BoxSizer(wx.HORIZONTAL)
         bottom_sizer = wx.BoxSizer(wx.HORIZONTAL)
 
-        main_sizer.AddSpacer(120)
+        main_sizer.AddSpacer(200)
         main_sizer.Add(bottom_sizer, 0, wx.EXPAND, border=10)
         main_sizer.Add(top_sizer, 0, wx.EXPAND , border=10)
 

@@ -88,6 +88,7 @@ class MyUI(wx.Frame):
 
         main_sizer.AddSpacer(200)
         main_sizer.Add(bottom_sizer, 0, wx.EXPAND, border=10)
+        main_sizer.AddSpacer(100)
         main_sizer.Add(top_sizer, 0, wx.EXPAND , border=10)
 
         # sizer_2.Add(self.left_score_text, 0, flag=wx.ALIGN_TOP, border=2)

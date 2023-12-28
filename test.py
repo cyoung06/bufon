@@ -66,8 +66,8 @@ class MyUI(wx.Frame):
         # self.media_control.Bind(wx.media.EVT_MEDIA_LOADED, self.afterLoad)
         # self.media_control.Bind(wx.media.EVT_MEDIA_FINISHED, self.init_game)
 
-        self.pnlVideo.SetBackgroundColour(wx.WHITE)
-        print(f"Setting window... {self.pnlVideo.GetHandle()} lolz")
+        # self.pnlVideo.SetBackgroundColour(wx.WHITE)
+        # print(f"Setting window... {self.pnlVideo.GetHandle()} lolz")
         # self.player.set_xwindow(self.pnlVideo.GetHandle())
 
         self.init_game()
@@ -111,7 +111,7 @@ class MyUI(wx.Frame):
         self.left_score_text.SetLabel(str(self.left_score))
     
     def init_game(self, e=None):
-        self.pnlVideo.Hide()
+        # self.pnlVideo.Hide()
         self.updateUI()
 
     # winner is defend or terror

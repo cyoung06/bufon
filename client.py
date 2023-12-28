@@ -46,12 +46,14 @@ class Manager():
         client.subscribe("game/winSide", qos=qos)
 
     def playRound(self):
-        if self.playingProcess != None:
+        if self.playingProcess is not None:
             self.playingProcess.terminate()
+            self.playingProcess = None
         self.playingProcess = subprocess.Popen([f'/usr/bin/aplay', f'sounds/r{self.scores["terrorist"] + self.scores["defender"] + 1}.wav'])
     def stopRound(self):
-        if self.playingProcess != None:
+        if self.playingProcess is not None:
             self.playingProcess.terminate()
+            self.playingProcess = None
 
 
     def on_message(self, client, userdata, msg):
@@ -68,8 +70,9 @@ class Manager():
             self.scores[datakey] = int(decoded_msg)
             app.setScore(datakey, self.scores[datakey])
 
-            if self.playingProcess != None:
+            if self.playingProcess is not None:
                 self.playingProcess.terminate()
+                self.playingProcess = None
             
 
             if self.scores["terrorist"] + self.scores["defender"] >= criticalPoint:
@@ -183,7 +186,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             mgmt.playRound()
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()    
-        elif self.path == '/stopRound':
+        elif self.path == '/stopround':
             mgmt.stopRound()
             self.send_response(HTTPStatus.NO_CONTENT)
             self.end_headers()    

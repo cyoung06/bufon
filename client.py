@@ -83,7 +83,8 @@ class Manager():
                 self.scores["terrorist"] = 0
                 if not self.played:
                     self.played = True
-                    os.system(f"/usr/bin/aplay sounds/victory_{datakey}.wav")
+                    os.system(f"/usr/bin/aplay sounds/round_{datakey}.wav") 
+                    os.system(f"/usr/bin/aplay sounds/victory_{"defender" if isLeftWin else "terrorist"}.wav")
                     time.sleep(1)
                     # app.endGame(isLeftWin)
                     # subprocess.Popen(["python", "vlctest.py", ""])
